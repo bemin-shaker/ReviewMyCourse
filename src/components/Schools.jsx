@@ -1,19 +1,10 @@
 import React from "react";
-import { db } from "./firebase";
+import { db } from "../firebase";
 import { Link } from "react-router-dom"; 
-import "./Categories.css"
-import Navbar from "./Navbar";
+import "./Schools.css"
+import Navbar from "../Navbar";
 
-// db.collection("Categories")
-//   .get()
-//   .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       console.log(doc.id);
-//     });
-//   });
-
-
-class Categories extends React.Component {
+class Schools extends React.Component {
 
   constructor(props){
     super(props);
@@ -25,12 +16,14 @@ class Categories extends React.Component {
   
   componentDidMount = () => {
     window.scrollTo(0, 0);
-      db.collection("Categories").get().then((snapshot) => (
+      db.collection("Schools").get().then((snapshot) => (
 
           snapshot.forEach((doc) => (
               this.setState((prevState) => ({
-                  projects: [...prevState.projects, {
-                      ID: doc.data().ID,
+                  projects: [...prevState.projects, 
+                    {
+                        id: doc.id,
+                        name: doc.data().name,
                     
                   }]
               }))
@@ -41,11 +34,11 @@ class Categories extends React.Component {
   
   render() {
     let displayProjects = this.state.projects.map((p) => (
-      <Link id="link" to={`/categories/${p.ID}`}>
-      <div className="categoryBox" key={p.ID}>
+      <Link id="link" to={`/schools/${p.id}`}>
+      <div className="categoryBox" key={p.id}>
              
               <div>
-                  <h1 >{p.ID}</h1>
+                  <h1 >{p.name}</h1>
               </div>
             
      
@@ -54,11 +47,10 @@ class Categories extends React.Component {
     return(
       <div>
         <Navbar />
-        <div className="categories">
+        <div className="schools">
        
          <h1 className="listTitle">
-         Choose course category from 
-          <strong> Stevens Institute of Technology</strong>
+         Choose one of the available schools
         </h1>
         <div className="categoryComponent">
           {displayProjects}
@@ -75,4 +67,4 @@ class Categories extends React.Component {
 
   
 
-export default Categories;
+export default Schools;

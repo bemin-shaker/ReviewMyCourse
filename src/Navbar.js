@@ -15,8 +15,8 @@ const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "COURSES",
-    path: "/categories",
+    title: "SCHOOLS",
+    path: "/schools",
     icon: <FaIcons.FaRegLightbulb />,
     cName: "nav-text",
   },
@@ -59,12 +59,10 @@ function Navbar() {
         </ul>
       </nav>
 
-      <div className="navbar">
-        <Link to="#" className="bars openNav">
-          <FaIcons.FaBars onClick={showSidebar} />
-        </Link>
-        <h3 className="website-logo-text">RateMyCourse</h3>
-      </div>
+      <Link to="#" className="bars openNav">
+        <FaIcons.FaBars onClick={showSidebar} />
+      </Link>
+
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
