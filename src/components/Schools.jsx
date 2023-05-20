@@ -1,5 +1,5 @@
 import React from "react";
-import { db } from "../firebase";
+import { db } from "../Backend/firebase";
 import { Link } from "react-router-dom"; 
 import "./Schools.css"
 import Navbar from "../Navbar";

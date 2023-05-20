@@ -2,7 +2,7 @@ import "./App.css";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Categories from "./components/Categories";
-import Courses from "./Courses";
+import Courses from "./components/Courses";
 import CourseReviews from "./CourseReviews";
 import Schools from "./components/Schools";
 function App() {
@@ -17,7 +17,10 @@ function App() {
             path={"/schools/:id/categories/:catId"}
             element={<Courses />}
           />
-          <Route path="/categories/:id/:courseid" element={<CourseReviews />} />
+          <Route
+            path="/schools/:id/categories/:catId/courses/:courseId"
+            element={<CourseReviews />}
+          />
         </Routes>
       </HashRouter>
     </div>

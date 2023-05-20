@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { db } from "../firebase";
+import { getCategories } from "../Backend/firebase-functions";
 import { Link } from "react-router-dom"; 
 import "./Categories.css"
 import Navbar from "../Navbar";
@@ -13,23 +13,19 @@ const Categories = () => {
   const {id} = useParams()
 
   useEffect(() => {
-    let data = []
-    db.collection("Schools").doc(id).collection("Categories").get().then((snapshot) => (
-      snapshot.forEach((doc) => (
-        data.push({
-          id: doc.id,
-          name: doc.data().name,
-        })
-      ))
-    ))
-    setCategories(data);
-    setTimeout(() => {
-    }, 8000000);
-    setLoading(false);
-    console.log(id, categories);
+   fetchData();
+  }, []);
 
-  }, [])
-
+  const fetchData = async () => {
+    try {
+      const data = await getCategories(id);
+      setCategories(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(categories)
   if (loading) {
     return (
       <div>
