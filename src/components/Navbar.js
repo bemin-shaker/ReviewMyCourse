@@ -9,13 +9,13 @@ import * as BsIcons from "react-icons/bs";
 
 const SidebarData = [
   {
-    title: "HOME",
+    title: "Home",
     path: "/",
     icon: <AiIcons.AiOutlineHome />,
     cName: "nav-text",
   },
   {
-    title: "SCHOOLS",
+    title: "Schools",
     path: "/schools",
     icon: <FaIcons.FaRegLightbulb />,
     cName: "nav-text",

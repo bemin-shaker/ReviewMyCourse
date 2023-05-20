@@ -2,7 +2,6 @@ import React from "react";
 import { db } from "../Backend/firebase";
 import { Link } from "react-router-dom"; 
 import "./Schools.css"
-import Navbar from "../Navbar";
 
 class Schools extends React.Component {
 
@@ -46,7 +45,6 @@ class Schools extends React.Component {
   
     return(
       <div>
-        <Navbar />
         <div className="schools">
        
          <h1 className="listTitle">

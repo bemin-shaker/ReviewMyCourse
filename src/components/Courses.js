@@ -7,7 +7,6 @@ import {
   useParams,
 } from "react-router-dom";
 import "./Courses.css";
-import Navbar from "../Navbar";
 import { getCourses } from "../Backend/firebase-functions";
 
 function Courses() {
@@ -35,7 +34,6 @@ function Courses() {
   } else {
     return (
       <div>
-        <Navbar />
         <div className="courses">
           <h1 className="listTitle">
             <strong>{catId} </strong> courses at{" "}

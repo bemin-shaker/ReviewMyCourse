@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { getCategories } from "../Backend/firebase-functions";
 import { Link } from "react-router-dom"; 
 import "./Categories.css"
-import Navbar from "../Navbar";
 import { useParams } from "react-router-dom";
 
 
@@ -37,7 +36,6 @@ const Categories = () => {
     return(
    
       <div>
-        <Navbar />
         <div className="categories">
         <h1 className="listTitle">Choose course category from {id}</h1>
         <div className="categoryComponent">

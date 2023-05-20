@@ -3,12 +3,14 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Categories from "./components/Categories";
 import Courses from "./components/Courses";
-import CourseReviews from "./CourseReviews";
+import CourseReviews from "./components/CourseReviews";
 import Schools from "./components/Schools";
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <div>
       <HashRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/schools" element={<Schools />} />
