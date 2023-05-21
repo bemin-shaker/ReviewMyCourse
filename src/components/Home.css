@@ -1,8 +1,10 @@
 .home {
-    margin-left: 80px;
-    padding: 0 40px;
-    display: flex;
-    flex-flow: column wrap;
+    margin-left: 90px;
+    padding: 0 20px;
     min-height: 100vh;
   }
   
+
+.home-banner-text{
+  width: 100vw;
+}

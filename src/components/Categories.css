@@ -2,8 +2,7 @@
   text-align: left;
   display: flex;
   flex-flow: column wrap;
-
-  padding: 20px 30px;
+  padding: 20px 20px;
   min-height: 100vh;
   color: #01203a !important;
   margin-left: 90px;

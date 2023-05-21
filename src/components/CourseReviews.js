@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from "react";
-import { db } from "../Backend/firebase";
 import {
   BrowserRouter as Router,
   Link,
@@ -8,56 +7,63 @@ import {
   useParams,
 } from "react-router-dom";
 import "./CourseReviews.css";
-import Navbar from "./Navbar";
+import { getReviews } from "../Backend/firebase-functions";
+import Spinner from "./Spinner";
 
 function CourseReviews() {
-  const [courses, setCourses] = useState([]);
-  const { id, courseid } = useParams();
-
-  var docRef = db
-    .collection("Categories")
-    .doc(id)
-    .collection("Courses")
-    .doc(courseid)
-    .collection("Reviews");
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { id, catId, courseId } = useParams();
 
   useEffect(() => {
-    docRef.get().then((snapshot) =>
-      snapshot.forEach((doc) => {
-        setCourses((courses) => [
-          ...courses,
-          {
-            name: doc.id,
-            message: doc.data().Message,
-            professor: doc.data().Professor,
-            difficulty: doc.data().difficulty,
-          },
-        ]);
-      })
-    );
+    fetchData();
   }, []);
 
-  console.log(courses);
+  const fetchData = async () => {
+    try {
+      const data = await getReviews(id, catId, courseId);
+      setReviews(data);
+      setTimeout(function () {
+        setLoading(false);
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const content = courses.map((post) => (
-    <div className="review-box" key={post.name}>
-      <h3>{post.name}</h3>
-      <p>
-        Professor: <strong>{post.professor}</strong>
-      </p>
-      <p>{post.message}</p>
-    </div>
-  ));
-
-  return (
-    <div>
-      <Navbar />
-      <div className="courseReviews">
-        <h1>{courseid}</h1>
-        {content}
+  if (loading) {
+    return (
+      <div>
+        <Spinner />
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className="courseReviews">
+          <h1 className="listTitle">
+            <strong>{courseId} </strong> in the <strong>{catId}</strong>{" "}
+            department at <strong>{id}</strong>
+          </h1>
+          {reviews &&
+            reviews.length > 0 &&
+            reviews.map((post) => {
+              return (
+                <div className="review-box" key={post.body}>
+                  <h3>{post.body}</h3>
+                  <p>
+                    Professor: <strong>{post.professor}</strong>
+                  </p>
+                  <p>
+                    Semester Taken: <strong>{post.semesterTaken}</strong>
+                  </p>
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default CourseReviews;

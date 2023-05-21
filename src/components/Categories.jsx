@@ -3,7 +3,7 @@ import { getCategories } from "../Backend/firebase-functions";
 import { Link } from "react-router-dom"; 
 import "./Categories.css"
 import { useParams } from "react-router-dom";
-
+import Spinner from "./Spinner";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -19,16 +19,18 @@ const Categories = () => {
     try {
       const data = await getCategories(id);
       setCategories(data);
-      setLoading(false);
+      setTimeout(function() {
+        setLoading(false);
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(categories)
+
   if (loading) {
     return (
       <div>
-        <h1>Loading..</h1>
+        <Spinner />
       </div>
     );
   } else {
@@ -37,7 +39,7 @@ const Categories = () => {
    
       <div>
         <div className="categories">
-        <h1 className="listTitle">Choose course category from {id}</h1>
+        <h1 className="listTitle">Choose course department from <strong>{id}</strong></h1>
         <div className="categoryComponent">
           {categories && categories.length > 0 && categories.map((category) => {
             return (

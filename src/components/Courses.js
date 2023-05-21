@@ -8,12 +8,14 @@ import {
 } from "react-router-dom";
 import "./Courses.css";
 import { getCourses } from "../Backend/firebase-functions";
+import Spinner from "./Spinner";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { id, catId } = useParams();
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,22 +24,26 @@ function Courses() {
     try {
       const data = await getCourses(id, catId);
       setCourses(data);
-      setLoading(false);
-      console.log("hi", data);
+      setTimeout(function () {
+        setLoading(false);
+      }, 1500);
     } catch (error) {
       console.log(error);
     }
   };
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   } else {
     return (
       <div>
         <div className="courses">
           <h1 className="listTitle">
-            <strong>{catId} </strong> courses at{" "}
-            <strong>Stevens Institute of Technology</strong>
+            <strong>{catId} </strong> courses at <strong>{id}</strong>
           </h1>
           <div className="courseComponent">
             {courses &&

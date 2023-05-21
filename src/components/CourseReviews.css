@@ -1,7 +1,7 @@
 .courseReviews {
   min-height: 100vh;
-  text-align: center;
-  margin-left: 100px;
+  margin-left: 90px;
+  padding: 20px 20px;
 }
 
 .review-box {
@@ -12,5 +12,4 @@
   padding: 20px;
   margin-bottom: 20px;
   margin-right: 20px;
-  margin-left: 20px;
 }
