@@ -9,8 +9,8 @@ const Home = () => {
                 <h1>ReviewMyCourse</h1>
                 <div style={{display: "flex", alignItems: "center"}}> 
                  
-                    <div><img src={schoolVector} alt="Logo" style={{height: '30vw'}} /></div>
-                    <div style={{ marginLeft: "20px", width: "30vw"}}> 
+                    <div><img src={schoolVector} alt="Logo" style={{height: '28vw'}} /></div>
+                    <div style={{marginLeft: 30}}> 
                         <h1>Review the course, <br></br> not the professor.</h1>  
                     </div>
                 </div>

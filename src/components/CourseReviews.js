@@ -45,6 +45,11 @@ function CourseReviews() {
             <strong>{courseId} </strong> in the <strong>{catId}</strong>{" "}
             department at <strong>{id}</strong>
           </h1>
+          <h5 className="rating-title">Average Rating:</h5>
+          <h3 style={{ display: "flex" }}>
+            <span className="rating-big">2.9</span>/ 5
+          </h3>
+          <button className="rate-btn"> Rate {courseId}</button>
           {reviews &&
             reviews.length > 0 &&
             reviews.map((post) => {
