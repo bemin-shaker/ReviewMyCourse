@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { getCategories } from "../Backend/firebase-functions";
 import { Link } from "react-router-dom"; 
 import "./Categories.css"
 import { useParams } from "react-router-dom";
@@ -16,15 +15,17 @@ const Categories = () => {
   }, []);
 
   const fetchData = async () => {
-    try {
-      const data = await getCategories(id);
-      setCategories(data);
-      setTimeout(function() {
-        setLoading(false);
-      }, 2000);
-    } catch (error) {
-      console.log(error);
-    }
+    fetch(`http://localhost:3000/api/${id}`)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log(data);
+        setCategories(data);
+        setTimeout(function () {
+          setLoading(false);
+        }, 2000);
+      })
   };
 
   if (loading) {
@@ -43,9 +44,9 @@ const Categories = () => {
         <div className="categoryComponent">
           {categories && categories.length > 0 && categories.map((category) => {
             return (
-              <Link id="link" to={`/schools/${id}/categories/${category.id}`}>
-                  <div className="categoryBox" key={category.id}>
-                    <h1 >{category.name}</h1>
+              <Link id="link" to={`/schools/${id}/categories/${category.categoryId}`}>
+                  <div className="categoryBox" key={category.categoryId}>
+                    <h1>{category.categoryName}</h1>
                   </div>
                 </Link>
                 )

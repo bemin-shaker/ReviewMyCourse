@@ -41,12 +41,12 @@ function Schools() {
           <div className="categoryComponent">
           {courses &&
               courses.length > 0 && courses !== undefined &&
-              courses.map((course) => {
+              courses.map((school) => {
                 return (
-                  <Link id="link" key={course.id} to={`/schools/${course.id}`}>
-                    <div className="categoryBox" key={course.id}>
+                  <Link id="link" key={school.id} to={`/schools/${school.schoolId}`}>
+                    <div className="categoryBox" key={school.id}>
                       <div>
-                        <h1 >{course.schoolName}</h1>
+                        <h1 >{school.schoolName}</h1>
                       </div>
                     </div>  
                   </Link>

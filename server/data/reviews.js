@@ -10,9 +10,9 @@ async function getAllSchools() {
 }
 
 //get all categories within a school
-async function getCategoriesBySchoolId(schoolId) {
+async function getCategoriesBySchoolId(id) {
   const schoolCollection = await schools();
-  const school = await schoolCollection.findOne({ _id: ObjectId(schoolId) });
+  const school = await schoolCollection.findOne({ schoolId: id });
   const categories = school.categories;
   return categories;
 }

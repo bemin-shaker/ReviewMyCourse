@@ -14,6 +14,16 @@ router.get("/", async (req, res) => {
 });
 
 //get all categories within a school
+router.get("/:school", async (req, res) => {
+  const schoolId = req.params.school;
+  const categories = await reviews.getCategoriesBySchoolId(schoolId);
+
+  try {
+    res.json(categories);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
 
 //get all courses within a category within a school
 
