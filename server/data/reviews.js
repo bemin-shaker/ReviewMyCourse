@@ -20,20 +20,28 @@ async function getCategoriesBySchoolId(id) {
 //get all courses within a category within a school
 async function getCoursesByCategoryId(schoolId, categoryId) {
   const schoolCollection = await schools();
-  const school = await schoolCollection.findOne({ _id: ObjectId(schoolId) });
+  const school = await schoolCollection.findOne({ schoolId: schoolId });
   const categories = school.categories;
-  const courses = categories[categoryId].courses;
+  const category = categories.find((category) => {
+    return category.categoryId === categoryId;
+  });
+  const courses = category.courses;
+
   return courses;
 }
 
 //get all reviews within a course within a category within a school
 async function getReviewsByCourseId(schoolId, categoryId, courseId) {
   const schoolCollection = await schools();
-  const school = await schoolCollection.findOne({ _id: ObjectId(schoolId) });
+  const school = await schoolCollection.findOne({ schoolId: schoolId });
   const categories = school.categories;
-  const courses = categories[categoryId].courses;
-  const reviews = courses[courseId].reviews;
-  return reviews;
+  const category = categories.find((category) => {
+    return category.categoryId === categoryId;
+  });
+  const course = category.courses.find((course) => {
+    return course.courseId === courseId;
+  });
+  return course.reviews;
 }
 
 //add a new school

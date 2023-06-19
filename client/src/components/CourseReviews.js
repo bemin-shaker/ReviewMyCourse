@@ -1,13 +1,6 @@
 import { React, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./CourseReviews.css";
-import { getReviews } from "../Backend/firebase-functions";
 import Spinner from "./Spinner";
 
 function CourseReviews() {
@@ -19,16 +12,18 @@ function CourseReviews() {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const data = await getReviews(id, catId, courseId);
-      setReviews(data);
-      setTimeout(function () {
-        setLoading(false);
-      }, 2000);
-    } catch (error) {
-      console.log(error);
-    }
+  const fetchData = () => {
+    fetch(`http://localhost:3000/api/${id}/${catId}/${courseId}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setReviews(data);
+        setTimeout(function () {
+          setLoading(false);
+        }, 2000);
+      });
   };
 
   if (loading) {
@@ -45,7 +40,7 @@ function CourseReviews() {
             <strong>{courseId} </strong> in the <strong>{catId}</strong>{" "}
             department at <strong>{id}</strong>
           </h1>
-          <h5 className="rating-title">Average Rating:</h5>
+          <h4 className="rating-title">Average Rating:</h4>
           <h3 style={{ display: "flex" }}>
             <span className="rating-big">2.9</span>/ 5
           </h3>
@@ -57,7 +52,7 @@ function CourseReviews() {
                 <div className="review-box" key={post.body}>
                   <h3>{post.body}</h3>
                   <p>
-                    Professor: <strong>{post.professor}</strong>
+                    Professor: <strong>{post.professorName}</strong>
                   </p>
                   <p>
                     Semester Taken: <strong>{post.semesterTaken}</strong>

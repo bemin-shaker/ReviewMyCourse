@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./Courses.css";
-import { getCourses } from "../Backend/firebase-functions";
 import Spinner from "./Spinner";
 
 function Courses() {
@@ -14,16 +13,18 @@ function Courses() {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const data = await getCourses(id, catId);
-      setCourses(data);
-      setTimeout(function () {
-        setLoading(false);
-      }, 1500);
-    } catch (error) {
-      console.log(error);
-    }
+  const fetchData = () => {
+    fetch(`http://localhost:3000/api/${id}/${catId}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCourses(data);
+        setTimeout(function () {
+          setLoading(false);
+        }, 2000);
+      });
   };
 
   if (loading) {
@@ -46,11 +47,12 @@ function Courses() {
                 return (
                   <Link
                     id="link"
-                    to={`/schools/${id}/categories/${catId}/courses/${course.id}`}
+                    to={`/schools/${id}/categories/${catId}/courses/${course.courseId}`}
                   >
-                    <div className="courseBox" key={course.id}>
-                      <h1>{course.name}</h1>
-                      <h4>Rating: {course.rating}</h4>
+                    <div className="courseBox" key={course.courseId}>
+                      <h1>{course.courseName}</h1>
+                      <h4>{course.reviews.length} reviews</h4>
+                      {/* <h4>Rating: {course.rating}</h4> */}
                     </div>
                   </Link>
                 );

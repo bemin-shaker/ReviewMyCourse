@@ -7,7 +7,7 @@ const Home = () => {
         <>    
             <div className="home">
                 <h1>ReviewMyCourse</h1>
-                <div style={{display: "flex", alignItems: "center"}}> 
+                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}> 
                  
                     <div><img src={schoolVector} alt="Logo" style={{height: '28vw'}} /></div>
                     <div style={{marginLeft: 30}}> 
