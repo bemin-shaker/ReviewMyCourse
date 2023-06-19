@@ -1,11 +1,5 @@
 import { React, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Courses.css";
 import { getCourses } from "../Backend/firebase-functions";
 import Spinner from "./Spinner";

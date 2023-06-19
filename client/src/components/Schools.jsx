@@ -1,68 +1,63 @@
-import React from "react";
-import { db } from "../Backend/firebase";
-import { Link } from "react-router-dom"; 
-import "./Schools.css"
+import { React, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./Schools.css";
+import Spinner from "./Spinner";
 
-class Schools extends React.Component {
+function Schools() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  constructor(props){
-    super(props);
-  
-    this.state = {
-      projects: []
-    }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    fetch("http://localhost:3000/api/")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log(data);
+        setCourses(data);
+        setTimeout(function () {
+          setLoading(false);
+        }, 2000);
+      })
   }
-  
-  componentDidMount = () => {
-    window.scrollTo(0, 0);
-      db.collection("Schools").get().then((snapshot) => (
 
-          snapshot.forEach((doc) => (
-              this.setState((prevState) => ({
-                  projects: [...prevState.projects, 
-                    {
-                        id: doc.id,
-                        name: doc.data().name,
-                    
-                  }]
-              }))
-          ))
-      ))
-      
-  }
-  
-  render() {
-    let displayProjects = this.state.projects.map((p) => (
-      <Link id="link" to={`/schools/${p.id}`}>
-      <div className="categoryBox" key={p.id}>
-             
-              <div>
-                  <h1 >{p.name}</h1>
-              </div>
-            
-     
-      </div>  </Link>))
-  
-    return(
+  console.log(courses);
+
+  if (loading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  } else {
+    return (
       <div>
         <div className="schools">
-       
-         <h1 className="listTitle">
-         Choose one of the available schools
-        </h1>
-        <div className="categoryComponent">
-          {displayProjects}
-        </div>
+          <h1 className="listTitle">Choose one of the available schools</h1>
+          <div className="categoryComponent">
+          {courses &&
+              courses.length > 0 && courses !== undefined &&
+              courses.map((course) => {
+                return (
+                  <Link id="link" key={course.id} to={`/schools/${course.id}`}>
+                    <div className="categoryBox" key={course.id}>
+                      <div>
+                        <h1 >{course.schoolName}</h1>
+                      </div>
+                    </div>  
+                  </Link>
+                );
+              })}
+          </div>
+       </div>
       </div>
-      </div>
-      
-      );
-    }
-    
-    
+    )
   }
+}
 
-
-  
 
 export default Schools;
