@@ -1,8 +1,9 @@
 const MongoClient = require("mongodb").MongoClient;
+const url = process.env["MONGO_SERVER_URL"];
+
 const settings = {
   mongoConfig: {
-    serverUrl:
-      "mongodb+srv://beminshaker:Maristhigh8864!8@cluster0.mmx5kue.mongodb.net/",
+    serverUrl: url,
     database: "ReviewMyCourse-DB",
   },
 };

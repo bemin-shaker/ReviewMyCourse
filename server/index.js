@@ -3,7 +3,7 @@ const app = express();
 // var cors = require("cors");
 
 // app.use(cors());
-
+require("dotenv").config({ path: __dirname + "/.env" });
 const configRoutes = require("./routes");
 
 app.use(express.json());
