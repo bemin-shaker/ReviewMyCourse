@@ -14,8 +14,6 @@ const Home = () => {
                         <h1>Review the course, <br></br> not the professor.</h1>  
                     </div>
                 </div>
-                   
-
             </div>
         </>
      
