@@ -55,4 +55,16 @@ router.get("/:school/:category/:course", async (req, res) => {
   }
 });
 
+//add a new school given its name
+router.post("/", async (req, res) => {
+  const schoolName = req.body.schoolName;
+  const schoolId = req.body.schoolId;
+  const newSchool = await reviews.addSchool(schoolName, schoolId);
+  try {
+    res.json(newSchool);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 module.exports = router;

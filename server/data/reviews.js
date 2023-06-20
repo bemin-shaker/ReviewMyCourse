@@ -45,11 +45,12 @@ async function getReviewsByCourseId(schoolId, categoryId, courseId) {
 }
 
 //add a new school
-async function addSchool(schoolName) {
+async function addSchool(schoolName, schoolId) {
   const schoolCollection = await schools();
   const newSchool = {
     schoolName: schoolName,
     categories: [],
+    schoolId: schoolId,
   };
   const insertInfo = await schoolCollection.insertOne(newSchool);
   if (insertInfo.insertedCount === 0) throw "Could not add school";
@@ -65,6 +66,12 @@ async function getSchoolById(id) {
   if (!school) throw "School not found";
   return school;
 }
+
+//add a new category to a school
+
+//add a course to a school given
+
+//add a review to a course
 
 module.exports = {
   getAllSchools,
