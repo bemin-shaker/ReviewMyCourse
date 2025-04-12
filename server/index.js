@@ -11,6 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 
 configRoutes(app);
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.listen(3000, async () => {
   console.log("We've now got a server!");
   console.log("Your routes will be running on http://localhost:3000");
