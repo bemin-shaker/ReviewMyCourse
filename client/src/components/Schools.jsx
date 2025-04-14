@@ -12,7 +12,11 @@ function Schools() {
   }, []);
 
   const fetchData = () => {
-    fetch("http://localhost:3000/api/")
+    const apiUrl = process.env.NODE_ENV === 'production'
+      ? "https://review-my-course.vercel.app/api"
+      : "http://localhost:3000/api/";
+
+    fetch(apiUrl)
       .then(response => {
         return response.json()
       })
