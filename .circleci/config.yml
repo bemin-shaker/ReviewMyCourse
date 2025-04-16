@@ -14,6 +14,12 @@ jobs:
           name: Install dependencies
           command: npm install
       - run:
+          name: Check react-router-dom
+          command: |
+            if ! npm list react-router-dom; then
+              npm install react-router-dom
+            fi
+      - run:
           name: Run tests
           command: npm test --passWithNoTests
   build-node:
