@@ -11,8 +11,8 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: Install react-router-dom
-          command: npm install react-router-dom
+          name: Install dependencies
+          command: npm install
       - run:
           name: Run tests
           command: npm test --passWithNoTests
