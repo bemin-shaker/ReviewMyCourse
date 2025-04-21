@@ -7,7 +7,7 @@ jobs:
     working_directory: ~/project/client-2
     steps:
       - checkout:
-          path: ~/project
+          path: ~/project/client-2
       - node/install-packages:
           pkg-manager: npm
       - run:
@@ -27,7 +27,7 @@ jobs:
     working_directory: ~/project/client-2
     steps:
       - checkout:
-          path: ~/project
+          path: ~/project/client-2
       - node/install-packages:
           pkg-manager: npm
       - run:
