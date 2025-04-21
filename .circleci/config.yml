@@ -20,6 +20,9 @@ jobs:
               npm install react-router-dom
             fi
       - run:
+          name: Debug - List installed modules
+          command: ls -l node_modules/react-router-dom
+      - run:
           name: Run tests
           command: npm test --passWithNoTests
   build-node:
