@@ -4,7 +4,7 @@ orbs:
 jobs:
   test-node:
     executor: node/default
-    working_directory: ~/project/client-2
+    working_directory: ~/project/client
     steps:
       - checkout:
           path: ~/project
@@ -24,7 +24,7 @@ jobs:
           command: ls -l node_modules/react-router-dom
   build-node:
     executor: node/default
-    working_directory: ~/project/client-2
+    working_directory: ~/project/client
     steps:
       - checkout:
           path: ~/project
