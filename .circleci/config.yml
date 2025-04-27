@@ -1,0 +1,60 @@
+version: 2.1
+orbs:
+  node: circleci/node@5
+jobs:
+  test-node:
+    executor: node/default
+    working_directory: ~/project/client
+    steps:
+      - checkout:
+          path: ~/project
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Check react-router-dom
+          command: |
+            if ! npm list react-router-dom; then
+              npm install react-router-dom
+            fi
+      - run:
+          name: Debug - List installed modules
+          command: ls -l node_modules/react-router-dom
+  build-node:
+    executor: node/default
+    working_directory: ~/project/client
+    steps:
+      - checkout:
+          path: ~/project
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm run build
+      - run:
+          name: Create the ~/artifacts directory if it doesn't exist
+          command: mkdir -p ~/artifacts
+      - run:
+          name: Copy artifacts
+          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
+      - store_artifacts:
+          path: ~/artifacts
+          destination: node-build
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: deploy
+          command: '#e.g. ./deploy.sh'
+      - run:
+          name: found gitlab workflows config
+          command: ':'
+workflows:
+  build-and-test:
+    jobs:
+      - test-node
+      - build-node:
+          requires:
+            - test-node

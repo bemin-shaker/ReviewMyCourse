@@ -41,7 +41,7 @@ function Courses() {
       <div>
         <div className="courses">
           <h1 className="listTitle">
-            <strong>{catId} </strong> courses at <strong>{id}</strong>
+            <strong>{catId} </strong> courses at <strong>{id}.</strong>
           </h1>
           <div className="courseComponent">
             {courses &&
