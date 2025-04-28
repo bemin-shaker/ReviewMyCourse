@@ -23,7 +23,7 @@ const SidebarData = [
 
   {
     title: "Profile",
-    path: "/update-profile",
+    path: "/profile",
     icon: <BsIcons.BsPerson />,
     cName: "nav-text",
   },
