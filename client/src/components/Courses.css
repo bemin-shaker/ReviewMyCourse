@@ -9,7 +9,7 @@
 .courseBox {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
   border-radius: 9px !important;
-  background-color: rgb(247, 247, 247);
+  background-color: white;
   padding: 20px;
   min-height: 50px;
   max-width: 100%;
