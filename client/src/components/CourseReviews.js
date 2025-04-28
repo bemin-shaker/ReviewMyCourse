@@ -1,12 +1,15 @@
 import { React, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import "./CourseReviews.css";
 import Spinner from "./Spinner";
 
 function CourseReviews() {
+  const location = useLocation();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id, catId, courseId } = useParams();
+
+  const { courseName, categoryName, schoolName } = location.state || {};
 
   useEffect(() => {
     fetchData();
@@ -40,14 +43,19 @@ function CourseReviews() {
       <div>
         <div className="courseReviews">
           <h1 className="listTitle">
-            <strong>{courseId} </strong> in the <strong>{catId}</strong>{" "}
-            department at <strong>{id}</strong>
+            <strong>{courseName} </strong> in the <strong>{categoryName}</strong>{" "}
+            department at <strong>{schoolName}</strong>
           </h1>
           <h4 className="rating-title">Average Rating:</h4>
           <h3 style={{ display: "flex" }}>
             <span className="rating-big">2.9</span>/ 5
           </h3>
-          <button className="rate-btn"> Rate {courseId}</button>
+          <Link
+            state={{ courseName: courseName }}
+            to={`/schools/${id}/categories/${catId}/courses/${courseId}/review`}
+          > 
+            <button className="rate-btn"> Rate {courseId}</button>
+          </Link>
           {reviews &&
             reviews.length > 0 &&
             reviews.map((post) => {

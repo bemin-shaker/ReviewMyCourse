@@ -47,7 +47,7 @@ function Schools() {
               courses.length > 0 && courses !== undefined &&
               courses.map((school) => {
                 return (
-                  <Link id="link" key={school.id} to={`/schools/${school.schoolId}`}>
+                  <Link id="link" key={school.id} to={`/schools/${school.schoolId}`} state={{schoolName: school.schoolName}}>
                     <div className="categoryBox" key={school.id}>
                       <div>
                         <h1 >{school.schoolName}</h1>

@@ -6,11 +6,12 @@ import Courses from "./components/Courses";
 import CourseReviews from "./components/CourseReviews";
 import Schools from "./components/Schools";
 import Profile from "./components/Profile";
+import ReviewForm from "./components/ReviewForm";
 import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <HashRouter>
         <Navbar />
         <Routes>
@@ -29,6 +30,10 @@ function App() {
             path="/profile"
             element={<Profile />}
           />
+          <Route
+            path="/schools/:id/categories/:catId/courses/:courseId/review"
+            element={<ReviewForm />}
+            />
         </Routes>
       </HashRouter>
     </div>

@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom"; 
+import { Link, useLocation } from "react-router-dom"; 
 import "./Categories.css"
 import { useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 
 const Categories = () => {
+  const location = useLocation();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = React.useState(true);
+  const { schoolName } = location.state || {};
 
   const {id} = useParams()
 
@@ -43,11 +45,11 @@ const Categories = () => {
    
       <div>
         <div className="categories">
-        <h1 className="listTitle">Choose course department from <strong>{id}</strong></h1>
+        <h1 className="listTitle">Choose course department from <strong>{schoolName}</strong></h1>
         <div className="categoryComponent">
           {categories && categories.length > 0 && categories.map((category) => {
             return (
-              <Link id="link" to={`/schools/${id}/categories/${category.categoryId}`}>
+              <Link id="link" to={`/schools/${id}/categories/${category.categoryId}`} state={{schoolName: schoolName, categoryName: category.categoryName}}>
                   <div className="categoryBox" key={category.categoryId}>
                     <h1>{category.categoryName}</h1>
                   </div>

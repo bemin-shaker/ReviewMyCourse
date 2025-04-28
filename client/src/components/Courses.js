@@ -1,13 +1,15 @@
 import { React, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import "./Courses.css";
 import Spinner from "./Spinner";
 
 function Courses() {
+  const location = useLocation();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { id, catId } = useParams();
+  const { schoolName, categoryName } = location.state || {};
 
   useEffect(() => {
     fetchData();
@@ -41,7 +43,7 @@ function Courses() {
       <div>
         <div className="courses">
           <h1 className="listTitle">
-            <strong>{catId} </strong> courses at <strong>{id}.</strong>
+            <strong>{categoryName} </strong> courses at <strong>{schoolName}</strong>
           </h1>
           <div className="courseComponent">
             {courses &&
@@ -51,6 +53,7 @@ function Courses() {
                   <Link
                     id="link"
                     to={`/schools/${id}/categories/${catId}/courses/${course.courseId}`}
+                    state={{ courseName: course.courseName, categoryName: categoryName, schoolName: schoolName}}
                   >
                     <div className="courseBox" key={course.courseId}>
                       <h1>{course.courseName}</h1>
