@@ -1,5 +1,5 @@
 import "./App.css";
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Categories from "./components/Categories";
 import Courses from "./components/Courses";
@@ -11,6 +11,11 @@ import SignUp from "./components/Signup";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 
+const PrivateRoute = ({ children }) => {
+  const isAuthenticated = localStorage.getItem("user"); // check if logged in
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
 function AppContent() {
   const location = useLocation();
   const hideNavbar = location.pathname === "/login" || location.pathname === "/signup";
@@ -19,15 +24,18 @@ function AppContent() {
     <>
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/schools" element={<Schools />} />
-        <Route path="/schools/:id" element={<Categories />} />
-        <Route path="/schools/:id/categories/:catId" element={<Courses />} />
-        <Route path="/schools/:id/categories/:catId/courses/:courseId" element={<CourseReviews />} />
-        <Route path="/schools/:id/categories/:catId/courses/:courseId/review" element={<ReviewForm />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* Public routes */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Protected routes */}
+        <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/schools" element={<PrivateRoute><Schools /></PrivateRoute>} />
+        <Route path="/schools/:id" element={<PrivateRoute><Categories /></PrivateRoute>} />
+        <Route path="/schools/:id/categories/:catId" element={<PrivateRoute><Courses /></PrivateRoute>} />
+        <Route path="/schools/:id/categories/:catId/courses/:courseId" element={<PrivateRoute><CourseReviews /></PrivateRoute>} />
+        <Route path="/schools/:id/categories/:catId/courses/:courseId/review" element={<PrivateRoute><ReviewForm /></PrivateRoute>} />
+        <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
       </Routes>
     </>
   );

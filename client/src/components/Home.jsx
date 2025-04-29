@@ -1,19 +1,22 @@
 import "./Home.css";
-import schoolVector from "../assets/school.jpg";
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
+import schoolVector from "../assets/school1.png";
 
 const Home = () => {
     return (
      
         <>    
-            <div className="home">
-                <h1>ReviewMyCourse</h1>
+            <div className="home">                
                 <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}> 
-                 
-                    <div><img src={schoolVector} alt="Logo" style={{height: '28vw'}} /></div>
+                    <div><img src={schoolVector} alt="Logo" style={{height: '32vw'}} /></div>
                     <div style={{marginLeft: 30}}> 
                         <h1>Review the course, <br></br> not the professor.</h1>  
                     </div>
                 </div>
+                <Link to="/schools" className="go-to-schools-btn">
+                        Go to Schools <FaArrowRight />
+                </Link>
             </div>
         </>
      

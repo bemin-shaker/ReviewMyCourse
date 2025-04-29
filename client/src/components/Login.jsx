@@ -11,7 +11,7 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     console.log("Login", { email, password });
-    // Call your login API here
+    localStorage.setItem("user", email);
     navigate("/"); 
   };
 

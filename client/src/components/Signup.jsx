@@ -12,13 +12,11 @@ function SignUp() {
   const handleSignUp = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-    console.log("Sign Up", { email, password });
-
-    // Suppose signup is successful
-    navigate("/"); // Redirect to Home page after signup
+        alert("Passwords do not match!");
+        return;
+      }
+    localStorage.setItem("user", email);
+    navigate("/"); 
   };
 
   return (
