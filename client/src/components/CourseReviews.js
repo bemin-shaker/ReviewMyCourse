@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 import "./CourseReviews.css";
 import Spinner from "./Spinner";
 
@@ -7,6 +8,7 @@ function CourseReviews() {
   const location = useLocation();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [averageRating, setAverageRating] = useState(null);
   const { id, catId, courseId } = useParams();
 
   const { courseName, categoryName, schoolName } = location.state || {};
@@ -25,6 +27,17 @@ function CourseReviews() {
       })
       .then((data) => {
         setReviews(data);
+        // Calculate average rating
+        if (data.reviews && data.reviews.length > 0) {
+          const total = data.reviews.reduce(
+            (sum, review) => sum + (review.rating || 0),
+            0
+          );
+          const avg = total / data.reviews.length;
+          setAverageRating(avg.toFixed(1)); 
+        } else {
+          setAverageRating(null);
+        }
         setTimeout(function () {
           setLoading(false);
         }, 2000);
@@ -46,7 +59,7 @@ function CourseReviews() {
           </h1>
           <h4 className="rating-title">Average Rating:</h4>
           <h3 style={{ display: "flex" }}>
-            <span className="rating-big">2.9</span>/ 5
+            <span className="rating-big">{averageRating}</span>/ 5
           </h3>
           <Link
             state={{ courseName: reviews.courseName }}
@@ -59,6 +72,10 @@ function CourseReviews() {
             reviews.reviews.map((post) => {
               return (
                 <div className="review-box" key={post.body}>
+                  <div className="review-header">
+                    <FaUserCircle size={28} style={{ marginRight: "8px" }} />
+                    <span className="user-email">{localStorage.getItem("user")}</span>
+                  </div>
                   <h3>{post.body}</h3>
                   <p>
                     Professor: <strong>{post.professorName}</strong>

@@ -70,13 +70,13 @@ router.post("/", async (req, res) => {
 //add a review to course
 router.post("/schools/:schoolId/categories/:categoryId/courses/:courseId/reviews", async (req, res) => {
   const { schoolId, categoryId, courseId } = req.params;
-  const { semesterTaken, body, professorName } = req.body;
+  const { semesterTaken, body, professorName, rating } = req.body;
 
   if (!semesterTaken || !body || !professorName) {
     return res.status(400).json({ error: "Missing required review fields" });
   }
 
-  const review = { semesterTaken, body, professorName };
+  const review = { semesterTaken, body, professorName, rating };
 
   try {
     await reviews.addReviewToCourse(schoolId, categoryId, courseId, review);

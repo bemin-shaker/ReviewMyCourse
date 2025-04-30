@@ -21,7 +21,7 @@ function ReviewForm({ onSubmit }) {
     const review = {
       professorName: professor,
       semesterTaken: semester,
-      rating,
+      rating: rating,
       difficulty,
       wouldTakeAgain,
       body: reviewBody,

@@ -43,3 +43,13 @@
   background-color: #dfa759;
 
 }
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.user-email {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
