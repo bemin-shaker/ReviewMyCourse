@@ -24,7 +24,6 @@ function CourseReviews() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setReviews(data);
         setTimeout(function () {
           setLoading(false);
@@ -43,22 +42,21 @@ function CourseReviews() {
       <div>
         <div className="courseReviews">
           <h1 className="listTitle">
-            <strong>{courseName} </strong> in the <strong>{categoryName}</strong>{" "}
-            department at <strong>{schoolName}</strong>
+            <strong>{reviews.courseName}</strong>
           </h1>
           <h4 className="rating-title">Average Rating:</h4>
           <h3 style={{ display: "flex" }}>
             <span className="rating-big">2.9</span>/ 5
           </h3>
           <Link
-            state={{ courseName: courseName }}
+            state={{ courseName: reviews.courseName }}
             to={`/schools/${id}/categories/${catId}/courses/${courseId}/review`}
           > 
-            <button className="rate-btn"> Rate {courseId}</button>
+            <button className="rate-btn">Review This Course</button>
           </Link>
-          {reviews &&
-            reviews.length > 0 &&
-            reviews.map((post) => {
+          {reviews.reviews &&
+            reviews.reviews.length > 0 &&
+            reviews.reviews.map((post) => {
               return (
                 <div className="review-box" key={post.body}>
                   <h3>{post.body}</h3>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import "./ReviewForm.css";
 
 function ReviewForm({ onSubmit }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [professor, setProfessor] = useState("");
   const [semester, setSemester] = useState("");
   const [rating, setRating] = useState(3);
@@ -11,11 +12,12 @@ function ReviewForm({ onSubmit }) {
   const [wouldTakeAgain, setWouldTakeAgain] = useState("");
   const [reviewBody, setReviewBody] = useState("");
 
-  const { courseId } = useParams();
+  const { id, catId, courseId } = useParams();
   const { courseName } = location.state || {};
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const review = {
       professorName: professor,
       semesterTaken: semester,
@@ -24,14 +26,37 @@ function ReviewForm({ onSubmit }) {
       wouldTakeAgain,
       body: reviewBody,
     };
-    onSubmit(review);
-    // Reset form
+
+    try {
+        const apiUrl = process.env.NODE_ENV === 'production'
+            ? `https://review-my-course.vercel.app/api/schools/${id}/categories/${catId}/courses/${courseId}/reviews`
+            : `http://localhost:3000/api/schools/${id}/categories/${catId}/courses/${courseId}/reviews`;
+    const response = await fetch(
+        apiUrl,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(review),
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || "Failed to submit review");
+    }
+
     setProfessor("");
     setSemester("");
     setRating(3);
     setDifficulty(3);
     setWouldTakeAgain("");
     setReviewBody("");
+    navigate(`/schools/${id}/categories/${catId}/courses/${courseId}`);
+    } catch (err) {
+    alert("Error: " + err.message);
+  }
   };
 
   return (

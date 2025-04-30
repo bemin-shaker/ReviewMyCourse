@@ -20,8 +20,14 @@
     align-items: center;
     margin-bottom: 20px;
     margin-right: 20px;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
   }
-
+  
+.categoryBox:hover {
+    transform: translateY(-10px);
+    background-color: #e89d3524;
+}
   
   #link {
     text-decoration: none !important;

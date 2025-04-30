@@ -17,6 +17,13 @@
 flex-direction: column;
   margin-bottom: 20px;
   margin-right: 20px;
+  transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+}
+
+.courseBox:hover {
+  transform: translateX(10px);
+  background-color: #e89d3524;
 }
 
 .courseBox h1 {

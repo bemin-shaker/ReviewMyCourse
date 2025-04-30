@@ -67,4 +67,24 @@ router.post("/", async (req, res) => {
   }
 });
 
+//add a review to course
+router.post("/schools/:schoolId/categories/:categoryId/courses/:courseId/reviews", async (req, res) => {
+  const { schoolId, categoryId, courseId } = req.params;
+  const { semesterTaken, body, professorName } = req.body;
+
+  if (!semesterTaken || !body || !professorName) {
+    return res.status(400).json({ error: "Missing required review fields" });
+  }
+
+  const review = { semesterTaken, body, professorName };
+
+  try {
+    await reviews.addReviewToCourse(schoolId, categoryId, courseId, review);
+    res.status(200).json({ message: "Review added successfully" });
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+
 module.exports = router;

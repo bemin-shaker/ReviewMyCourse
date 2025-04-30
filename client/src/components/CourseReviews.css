@@ -38,3 +38,8 @@
   border-radius: 25px;
   margin-bottom: 20px;
 }
+
+.rate-btn:hover {
+  background-color: #dfa759;
+
+}

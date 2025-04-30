@@ -41,7 +41,7 @@ async function getReviewsByCourseId(schoolId, categoryId, courseId) {
   const course = category.courses.find((course) => {
     return course.courseId === courseId;
   });
-  return course.reviews;
+  return {reviews: course.reviews, courseName: course.courseName};
 }
 
 //add a new school
@@ -72,6 +72,35 @@ async function getSchoolById(id) {
 //add a course to a school given
 
 //add a review to a course
+async function addReviewToCourse(schoolId, categoryId, courseId, review) {
+  const schoolCollection = await schools();
+
+  const updateResult = await schoolCollection.updateOne(
+    {
+      schoolId: schoolId,
+      "categories.categoryId": categoryId,
+      "categories.courses.courseId": courseId
+    },
+    {
+      $push: {
+        "categories.$[cat].courses.$[course].reviews": review
+      }
+    },
+    {
+      arrayFilters: [
+        { "cat.categoryId": categoryId },
+        { "course.courseId": courseId }
+      ]
+    }
+  );
+
+  if (updateResult.modifiedCount === 0) {
+    throw `Could not add review to course '${courseId}' in category '${categoryId}' at school '${schoolId}'`;
+  }
+
+  return { success: true };
+}
+
 
 module.exports = {
   getAllSchools,
@@ -79,4 +108,5 @@ module.exports = {
   getCoursesByCategoryId,
   getReviewsByCourseId,
   addSchool,
+  addReviewToCourse
 };
