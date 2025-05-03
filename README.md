@@ -1,0 +1,2 @@
+# ReviewMyCourse
+This project involves the implementation of a robust Continuous Integration and Continuous Deployment (CI/CD) pipeline for a course reviewing platform designed to assist students in planning their academic courses. The pipeline integrates Git for version control, CircleCI for automated builds and testing, Vercel for seamless deployment, and MongoDB Atlas for real-time data storage. 
